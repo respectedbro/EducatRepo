@@ -1,7 +1,7 @@
 let num = 266219;
 
 
-function addingNum(num) {
+function additNum(num) {
 	num = String(num).split('');
 	let sum = 1;
 	
@@ -11,8 +11,8 @@ function addingNum(num) {
 	return sum;
 }
 
-console.log(addingNum(num));
+console.log(additNum(num));
 
-let sumOfNum = addingNum(num) ** 3;
+let cubeOfNum = additNum(num) ** 3;
 
-console.log(String(sumOfNum).slice(0, 2));
+console.log(String(cubeOfNum).slice(0, 2));
