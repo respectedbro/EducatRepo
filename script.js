@@ -14,6 +14,6 @@ console.log(screens.length);
 console.log(`Стоимость верстки экранов ${screenPrice} долларов`);
 console.log(`Стоимость верстки экранов ${fullPrice} долларов`);
 
-console.log(screens.toLocaleLowerCase().split(' '));
+console.log(screens.toLocaleLowerCase().split(', '));
 
 console.log((fullPrice * (rollback/100)));
