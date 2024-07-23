@@ -1,9 +1,19 @@
-let title = 'h1';
-let screens = 100;
-let screenPrice;
-const rollback = 'rollback';
-const fullPrice = 200;
+const title = 'My project';
+const screens = 'Простые, Сложные, Интерактивные';
+const screenPrice = 700;
+const rollback = 88;
+const fullPrice = 1000000;
 const adaptive = true;
 
-alert('Hello World');
-console.log('Hello');
+console.log(typeof(title));
+console.log(typeof(fullPrice));
+console.log(typeof(adaptive));
+
+console.log(screens.length);
+
+console.log(`Стоимость верстки экранов ${screenPrice} долларов`);
+console.log(`Стоимость верстки экранов ${fullPrice} долларов`);
+
+console.log(screens.toLocaleLowerCase().split(' '));
+
+console.log((fullPrice * (rollback/100)));
