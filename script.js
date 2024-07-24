@@ -1,22 +1,6 @@
 'use strict'
 
-let lang = 'en';
-
-// if (lang === 'ru') {
-// 	console.log('Пн', 'Вт', 'Ср', 'Чт', 'Пт', 'Сб', 'Вс');
-// } else if (lang === 'en') {
-// 	console.log('Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun');
-// }
-
-// switch(lang) {
-// 	case 'ru':
-// 		console.log('Пн', 'Вт', 'Ср', 'Чт', 'Пт', 'Сб', 'Вс');
-// 		break;
-// 	case 'en':
-// 		console.log('Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun');
-// 		break;	
-// }
-
+const lang = 'en';
 const days = {
 	ru: ['Пн', 'Вт', 'Ср', 'Чт', 'Пт', 'Сб', 'Вс'],
 	en: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']
@@ -24,6 +8,22 @@ const days = {
 console.log(days[lang]);
 
 
+if (lang === 'ru') {
+	console.log(days.ru);
+} else if (lang === 'en') {
+	console.log(days.en);
+}
+
+switch(lang) {
+	case 'ru':
+		console.log(days.ru);
+		break;
+	case 'en':
+		console.log(days.en);
+		break;	
+}
+
+
 const namePerson = 'Артём';
-const person = namePerson == 'Артём' ? 'директор' : namePerson == 'Александр' ? 'преподаватель' : 'студент';
+const person = namePerson === 'Артём' ? 'директор' : namePerson === 'Александр' ? 'преподаватель' : 'студент';
 console.log(person);
