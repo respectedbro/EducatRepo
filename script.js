@@ -1,17 +1,19 @@
 'use strict'
 
-const screens = prompt('Какие типы экранов нужно разработать?', 'Простые, Сложные, Интерактивные');
-const screenPrice = +prompt('Сколько будет стоить данная работа?', '12000');
-const adaptive = confirm('Нужен ли адаптив на сайте?');
-const service1 = prompt('Какой дополнительный тип услуги нужен?', 'Анимация');
-const servicePrice1 = +prompt('Сколько это будет стоить?', '5000');
-const service2 = prompt('Какой дополнительный тип услуги нужен?', 'SEO');
-const servicePrice2 = +prompt('Сколько это будет стоить?', '10000');
-const rollback = 88;
 let title = prompt('Как называется ваш проект?', 'Калькулятор вёрстки');
-let fullPrice = screenPrice + servicePrice1 + servicePrice2;
-let servicePercentPrice = fullPrice - rollback;
+let screens = prompt('Какие типы экранов нужно разработать?', 'Простые, Сложные, Интерактивные');
+let screenPrice = +prompt('Сколько будет стоить данная работа?', '12000');
+let adaptive = confirm('Нужен ли адаптив на сайте?');
+
+let service1 = prompt('Какой дополнительный тип услуги нужен?', 'Анимация');
+let servicePrice1 = +prompt('Сколько это будет стоить?', '5000');
+let service2 = prompt('Какой дополнительный тип услуги нужен?', 'SEO');
+let servicePrice2 = +prompt('Сколько это будет стоить?', '10000');
+
+let rollback = 88;
 let allServicePrices;
+let fullPrice;
+let servicePercentPrice;
 
 const showTypeOf = function(variable) {
 	console.log(variable, typeof(variable));
@@ -36,21 +38,18 @@ function getFullPrice() {
 	return screenPrice + allServicePrices;
 }
 
-function getTitle(str) {
-	const trimStr = str.trim(); 
-	const fstLtr = trimStr[0].toUpperCase();
-	const restLtr = trimStr.slice(1).toLowerCase();
-	
-	return fstLtr + restLtr;
+const getTitle = function() {
+	return title.trim()[0].toUpperCase() + title.trim().slice(1).toLowerCase();
   }
 
   function getServicePercentPrices() {
 	return fullPrice - rollback;
   }
 
-servicePercentPrice = getServicePercentPrices();
+title = getTitle();
 allServicePrices = getAllServicePrices();
 fullPrice = getFullPrice();
+servicePercentPrice = getServicePercentPrices();
 
 showTypeOf(title);
 showTypeOf(fullPrice);
