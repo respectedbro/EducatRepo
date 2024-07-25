@@ -1,39 +1,64 @@
 'use strict'
 
-const title = prompt('Как называется ваш проект?');
 const screens = prompt('Какие типы экранов нужно разработать?', 'Простые, Сложные, Интерактивные');
-const screenPrice = +prompt('Сколько будет стоить данная работа?', '1200');
-const rollback = 88;
+const screenPrice = +prompt('Сколько будет стоить данная работа?', '12000');
 const adaptive = confirm('Нужен ли адаптив на сайте?');
-const service1 = prompt('Какой дополнительный тип услуги нужен?');
-const servicePrice1 = +prompt('Сколько это будет стоить?');
-const service2 = prompt('Какой дополнительный тип услуги нужен?');
-const servicePrice2 = +prompt('Сколько это будет стоить?');
+const service1 = prompt('Какой дополнительный тип услуги нужен?', 'Анимация');
+const servicePrice1 = +prompt('Сколько это будет стоить?', '5000');
+const service2 = prompt('Какой дополнительный тип услуги нужен?', 'SEO');
+const servicePrice2 = +prompt('Сколько это будет стоить?', '10000');
+const rollback = 88;
+let title = prompt('Как называется ваш проект?', 'Калькулятор вёрстки');
+let fullPrice = screenPrice + servicePrice1 + servicePrice2;
+let servicePercentPrice = fullPrice - rollback;
+let allServicePrices;
 
-const fullPrice = screenPrice + servicePrice1 + servicePrice2;
-
-const servicePercentPrice = Math.ceil(fullPrice - rollback);
-console.log(servicePercentPrice);
-
-switch(true) {
-	case fullPrice >= 30000:
-		alert('Даем скидку в 10%');
-		break;
-	case fullPrice >= 15000 && fullPrice < 30000:
-		alert('Даем скидку в 5%');
-		break;
-	case fullPrice < 15000 && fullPrice >= 0:
-		alert('Скидка не предусмотрена');
-		break;
-	default:
-		alert('Что то пошло не так');
+const showTypeOf = function(variable) {
+	console.log(variable, typeof(variable));
 }
 
-// console.log(typeof(title));
-// console.log(typeof(fullPrice));
-// console.log(typeof(adaptive));
-// console.log(screens.length);
-// console.log(`Стоимость верстки экранов ${screenPrice} долларов`);
-// console.log(`Стоимость верстки экранов ${fullPrice} долларов`);
-// console.log(screens.toLocaleLowerCase().split(', '));
-// console.log((fullPrice * (rollback/100)));
+const getRollbackMessage = function(price) {
+	if (price >= 30000) {
+		return 'Даём скидку 10%';
+	} else if (price >= 15000 && price < 30000) {
+		return 'Даём скидку 5%';
+	} else if (price >= 0 && price < 30000) {
+		return 'Скидка не предусмотрена';
+	} else {
+		return 'Что-то пошло не так';
+	}
+}
+const getAllServicePrices = function() {
+	return servicePrice1 + servicePrice2;
+}
+
+function getFullPrice() {
+	return screenPrice + allServicePrices;
+}
+
+function getTitle(str) {
+	const trimStr = str.trim(); 
+	const fstLtr = trimStr[0].toUpperCase();
+	const restLtr = trimStr.slice(1).toLowerCase();
+	
+	return fstLtr + restLtr;
+  }
+
+  function getServicePercentPrices() {
+	return fullPrice - rollback;
+  }
+
+servicePercentPrice = getServicePercentPrices();
+allServicePrices = getAllServicePrices();
+fullPrice = getFullPrice();
+
+showTypeOf(title);
+showTypeOf(fullPrice);
+showTypeOf(adaptive);
+
+console.log(screens);
+console.log(getRollbackMessage(fullPrice));
+console.log(getServicePercentPrices());
+
+
+
