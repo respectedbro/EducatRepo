@@ -35,9 +35,15 @@ const getAllServicePrices = function() {
     let sum = 0;
 
     for(let i = 0; i < 2; i++) {
-        let service = prompt('Какой дополнительный тип услуги нужен?');
+        let service;
 		let servicePrice;
-		if (service === null) break;
+		do {
+            service = prompt('Какой дополнительный тип услуги нужен?');
+            if (service === null) break;
+            service = service.trim();
+        } while (isNumber(service))
+			
+        if (service === null) break;
     
         do {
             servicePrice = prompt('Сколько это будет стоить?');
