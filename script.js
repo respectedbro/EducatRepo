@@ -1,51 +1,54 @@
 'use strict'
-let count = 10;
 
 const isNumber = function (num) {
-  return !isNaN(parseFloat(num)) && isFinite(num);
+	return !isNaN(parseFloat(num)) && isFinite(num)
 }
 
-const guessNumber = function () {
-  const botNum = Math.ceil(Math.random() * 100);
-  console.log(botNum);
-  while (count > 0) {
-    let userNum = prompt('Угадай число, введи число от 1 до 100');
+const guessNumber = function (
+	botNum = Math.ceil(Math.random() * 100),
+	count = 10
+) {
+	console.log(botNum)
 
-    if (userNum === null) {
-      alert('Игра окончена');
-      return;
-    }
+	const userNum = prompt('Угадай число, введи число от 1 до 100')
 
-    while (!isNumber(userNum) || userNum === '') {
-      userNum = prompt('Введи число!');
-    }
+	if (userNum === null) {
+		alert('Игра окончена')
+		return
+	}
 
-    userNum = parseFloat(userNum);
-    count--;
+	if (!isNumber(userNum) || userNum === '') {
+		alert('Введи число!')
+		return guessNumber(botNum, count)
+	}
 
-    if (userNum > botNum) {
-      alert(`Загаданное число больше, осталось попыток ${count}`);
-    } else if (userNum < botNum) {
-      alert(`Загаданное число меньше, осталось попыток ${count}`);
-    } else {
-      const play = confirm('Поздравляю, Вы угадали!!! Хотели бы сыграть еще?"');
-      if (play) {
-        count = 10;
-      } else {
-        return;
-      }
-    }
+	const userNumParsed = parseFloat(userNum)
+	count--
 
-    if (count <= 0) {
-      const play = confirm('Попытки закончились, хотите сыграть еще?');
-      if (play) {
-        count = 10;
-        guessNumber();
-      } else {
-        alert('Игра окончена')
-        return;
-      }
-    }
-  }
+	if (userNumParsed > botNum) {
+		alert(`Загаданное число меньше, осталось попыток ${count}`)
+	} else if (userNumParsed < botNum) {
+		alert(`Загаданное число больше, осталось попыток ${count}`)
+	} else {
+		const play = confirm('Поздравляю, Вы угадали!!! Хотели бы сыграть еще?')
+		if (play) {
+			return guessNumber(Math.ceil(Math.random() * 100), 10)
+		} else {
+			alert('Игра окончена')
+			return
+		}
+	}
+
+	if (count <= 0) {
+		if (confirm('Попытки закончились, хотите сыграть еще?')) {
+		  return guessNumber(Math.ceil(Math.random() * 100), 10);
+		} else {
+		  alert('Игра окончена');
+		  return;
+		}
+	  }
+
+	return guessNumber(botNum, count)
 }
-guessNumber();
+
+guessNumber()
