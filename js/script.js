@@ -1,12 +1,12 @@
 'use strict'
 const mainTitle = document.getElementsByTagName('h1')[0]
-const totalBtns = document.getElementsByClassName('handler_btn')
+const totalBtn1 = document.getElementsByClassName('handler_btn')[0]
+const totalBtn2 = document.getElementsByClassName('handler_btn')[1]
 const addScreensBtn = document.querySelector('.screen-btn')
 const itemsPercent = document.querySelectorAll('.other-items.percent')
 const itemsNumber = document.querySelectorAll('.other-items.number')
 const inputRange = document.querySelector('.rollback input[type="range"]')
 const rangeValue = document.querySelector('.rollback span')
-// 7 задание не особо понятно
 const totalInput1 = document.getElementsByClassName('total-input')[0]
 const totalInput2 = document.getElementsByClassName('total-input')[1]
 const totalInput3 = document.getElementsByClassName('total-input')[2]
