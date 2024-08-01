@@ -1,7 +1,7 @@
 'use strict'
 const mainTitle = document.getElementsByTagName('h1')[0]
-const totalBtn1 = document.getElementsByClassName('handler_btn')[0]
-const totalBtn2 = document.getElementsByClassName('handler_btn')[1]
+const mathBtn = document.getElementsByClassName('handler_btn')[0]
+const dumpBtn = document.getElementsByClassName('handler_btn')[1]
 const addScreensBtn = document.querySelector('.screen-btn')
 const itemsPercent = document.querySelectorAll('.other-items.percent')
 const itemsNumber = document.querySelectorAll('.other-items.number')
