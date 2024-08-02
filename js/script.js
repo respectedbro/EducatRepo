@@ -1,4 +1,19 @@
 'use strict'
+const mainTitle = document.getElementsByTagName('h1')[0]
+const mathBtn = document.getElementsByClassName('handler_btn')[0]
+const dumpBtn = document.getElementsByClassName('handler_btn')[1]
+const addScreensBtn = document.querySelector('.screen-btn')
+const itemsPercent = document.querySelectorAll('.other-items.percent')
+const itemsNumber = document.querySelectorAll('.other-items.number')
+const inputRange = document.querySelector('.rollback input[type="range"]')
+const rangeValue = document.querySelector('.rollback span')
+const totalInput1 = document.getElementsByClassName('total-input')[0]
+const totalInput2 = document.getElementsByClassName('total-input')[1]
+const totalInput3 = document.getElementsByClassName('total-input')[2]
+const totalInput4 = document.getElementsByClassName('total-input')[3]
+const totalInput5 = document.getElementsByClassName('total-input')[4]
+
+let screens = document.querySelectorAll('.screen')
 
 const appData = {
 	title: '',
@@ -9,7 +24,7 @@ const appData = {
 	allServicePrices: 0,
 	fullPrice: 0,
 	servicePercentPrice: 0,
-	services: {},
+	services: [],
 	start: function () {
 		appData.asking()
 		appData.addPrices()
@@ -33,7 +48,7 @@ const appData = {
 		}
 
 		for (let i = 0; i < 2; i++) {
-			let name;
+			let name
 			let price = 0
 			do {
 				name = prompt('Какие типы экранов нужно разработать?')
@@ -52,7 +67,7 @@ const appData = {
 		}
 
 		for (let i = 0; i < 2; i++) {
-			let name;
+			let name
 			let price = 0
 			do {
 				name = prompt('Какой дополнительный тип услуги нужен?')
@@ -73,20 +88,20 @@ const appData = {
 				}
 			} while (price === null || !appData.isNumber(price))
 
-			appData.services[name] = +price
+			appData.services.push({ id: i, name: name, price: price })
 		}
 
 		appData.screenPrice = parseFloat(appData.screenPrice)
 		appData.adaptive = confirm('Нужен ли адаптив на сайте?')
 	},
 	addPrices: function () {
-		for (let screen of appData.screens) {
-			appData.screenPrice += +screen.price
-		}
+		appData.screenPrice = appData.screens.reduce((sum, elem) => {
+			return sum + parseFloat(elem.price)
+		}, 0)
 
-		for (let key in appData.services) {
-			appData.allServicePrices += appData.services[key]
-		}
+		appData.allServicePrices = appData.services.reduce((sum, elem) => {
+			return sum + parseFloat(elem.price)
+		}, 0)
 	},
 	getFullPrice: function () {
 		appData.fullPrice = +appData.screenPrice + appData.allServicePrices
@@ -118,7 +133,8 @@ const appData = {
 		console.log(appData.fullPrice)
 		console.log(appData.servicePercentPrice)
 		console.log(appData.screens)
+		console.log(this.services)
 	},
 }
 
-appData.start()
+// appData.start()
