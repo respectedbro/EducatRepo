@@ -1,4 +1,4 @@
-'use strict'
+'use strict'//  я пытался, но запутался и не идёт дальше)
 const title = document.getElementsByTagName('h1')[0]
 const buttonPlus = document.querySelector('.screen-btn')
 const otherItemsPercent = document.querySelectorAll('.other-items.percent')
@@ -15,6 +15,9 @@ const totalCount = document.getElementsByClassName('total-input')[1]
 const totalCountOther = document.getElementsByClassName('total-input')[2]
 const fullTotalCount = document.getElementsByClassName('total-input')[3]
 const totalCountRollback = document.getElementsByClassName('total-input')[4]
+const cmsOpen = document.getElementById('cms-open')
+const hiddenCmsVariants = document.querySelector('.hidden-cms-variants')
+const cmsSelect = document.getElementById('cms-select')
 
 let screens = document.querySelectorAll('.screen')
 
@@ -30,12 +33,16 @@ const appData = {
 	servicePercentPrice: 0,
 	servicesPercent: {},
 	servicesNumber: {},
+	cmsPrice: 0,
 	init: function () {
 		this.addTitle()
 		startBtn.addEventListener('click', this.start.bind(this))
 		buttonPlus.addEventListener('click', this.addScreenBlock)
 		inputRange.addEventListener('input', this.addRange)
 		resetBtn.addEventListener('click', this.reset.bind(this))
+		cmsOpen.addEventListener('change', this.cmsOpen.bind(this))
+		cmsSelect.addEventListener('change', this.addCmsOtherInput.bind(this))
+		hiddenCmsVariants.addEventListener('change', this.addCmsPrice.bind(this))
 	},
 	addTitle: function () {
 		document.title = title.textContent
@@ -66,11 +73,14 @@ const appData = {
 		if (this.isError()) {
 			return
 		}
-
-		this.changeButton()
-		this.disabledChange()
-		this.addScreens()
-		this.addServices()
+		console.log(this.cmsPrice);
+		this.changeButton();
+		this.disabledChange();
+		this.addScreens();
+		this.addServices();
+		this.addCmsPrice();
+		this.addPrices();
+		this.showResult(); 
 
 		this.addPrices()
 		// this.getServicePercentPrices()
@@ -79,7 +89,7 @@ const appData = {
 	},
 	showResult: function () {
 		total.value = this.screenPrice
-		totalCountOther.value = this.ServicePricesPercent + this.ServicePricesNumber
+		totalCountOther.value = this.ServicePricesPercent + this.ServicePricesNumber + this.cmsPrice
 		fullTotalCount.value = this.fullPrice
 		totalCountRollback.value = this.servicePercentPrice
 	},
@@ -154,7 +164,39 @@ const appData = {
 		this.servicePercentPrice =
 			this.fullPrice - this.fullPrice * (this.rollback / 100)
 	},
-	getServicePercentPrices: function () {},
+	cmsOpen: function () {
+		if (cmsOpen.checked) {
+			hiddenCmsVariants.style.display = 'flex'
+		} else {
+			hiddenCmsVariants.style.display = 'none'
+		}
+	},
+	addCmsOtherInput: function () {
+		const cmsOtherInput = hiddenCmsVariants.querySelector(
+			'.main-controls__input'
+		)
+		if (cmsSelect.value === 'other') {
+			cmsOtherInput.style.display = 'block'
+		} else {
+			cmsOtherInput.style.display = 'none'
+		}
+	},
+	addCmsPrice: function () {
+		let cmsPercent = 0;
+		const cmsSelects = hiddenCmsVariants.querySelectorAll('select');
+		const cmsOtherInput = hiddenCmsVariants.querySelector('input[type=text]');
+	
+		cmsSelects.forEach(select => {
+			if (select.value === 'other') {
+				cmsPercent += parseFloat(cmsOtherInput.value) || 0;
+			} else {
+				const selectedOptionValue = parseFloat(select.value) || 0;
+				cmsPercent += selectedOptionValue;
+			}
+		});
+	
+		this.cmsPrice = cmsPercent;
+	},
 	logger: function () {
 		console.log(this.fullPrice)
 		console.log(this.servicePercentPrice)
@@ -177,6 +219,8 @@ const appData = {
 			const check = item.querySelector('input[type=checkbox]')
 			check.disabled = true
 		})
+		
+		
 
 		buttonPlus.disabled = true
 	},
