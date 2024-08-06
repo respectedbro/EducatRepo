@@ -23,7 +23,7 @@ const appData = {
 	screens: [],
 	screenPrice: 0,
 	adaptive: true,
-	rollback: 10,
+	rollback: 0,
 	ServicePricesPercent: 0,
 	ServicePricesNumber: 0,
 	fullPrice: 0,
@@ -52,7 +52,7 @@ const appData = {
 	},
 	addRange: function () {
 		inputRangeValue.textContent = inputRange.value + '%'
-		appData.rollback = +inputRange.value
+		appData.rollback = Math.round(inputRange.value)
 
 		if (appData.fullPrice > 0) {
 			appData.servicePercentPrice =
@@ -64,11 +64,11 @@ const appData = {
 		if (appData.isError()) {
 			return
 		}
-		appData.screens = []
-		appData.screenPrice = 0
-		appData.ServicePricesPercent = 0
-		appData.ServicePricesNumber = 0
-		appData.fullPrice = 0
+		// appData.screens = []
+		// appData.screenPrice = 0
+		// appData.ServicePricesPercent = 0
+		// appData.ServicePricesNumber = 0
+		// appData.fullPrice = 0
 
 		appData.addScreens()
 		appData.addServices()
@@ -127,6 +127,11 @@ const appData = {
 		const cloneScreen = screens[0].cloneNode(true)
 		console.log(cloneScreen)
 		screens[screens.length - 1].after(cloneScreen)
+		screens = document.querySelectorAll('.screen') 
+
+		const input = cloneScreen.querySelector('input')
+		input.value = ''
+		
 	},
 	addPrices: function () {
 		totalCount.value = appData.screens.reduce((total, screen) => total + screen.count, 0)
