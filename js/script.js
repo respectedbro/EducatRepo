@@ -34,7 +34,7 @@ const appData = {
 		this.addTitle()
 		startBtn.addEventListener('click', this.start.bind(this))
 		buttonPlus.addEventListener('click', this.addScreenBlock)
-		inputRange.addEventListener('input', this.addRange)
+		inputRange.addEventListener('input', this.addRange.bind(this))
 		resetBtn.addEventListener('click', this.reset.bind(this))
 	},
 	addTitle: function () {
@@ -61,6 +61,7 @@ const appData = {
 				this.fullPrice - this.fullPrice * (this.rollback / 100)
 			totalCountRollback.value = this.servicePercentPrice
 		}
+		
 	},
 	start: function () {
 		if (this.isError()) {
@@ -91,7 +92,7 @@ const appData = {
 			const input = screen.querySelector('input')
 			const selectName = select.options[select.selectedIndex].textContent
 
-			appData.screens.push({
+			this.screens.push({
 				id: index,
 				name: selectName,
 				price: +select.value * +input.value,
@@ -185,14 +186,14 @@ const appData = {
 		resetBtn.style.display = 'flex'
 	},
 	reset: function () {
-		this.EnabledChange()
+		this.enabledChange()
 		this.removeScreenBlock()
 		this.clear()
 		startBtn.style.display = 'block'
 		resetBtn.style.display = 'none'
-		this.start()
+
 	},
-	EnabledChange: function () {
+	enabledChange: function () {
 		screens.forEach(screen => {
 			const select = screen.querySelector('select')
 			const input = screen.querySelector('input')
@@ -224,6 +225,7 @@ const appData = {
 		this.servicePercentPrice = 0
 		this.servicesPercent = {}
 		this.servicesNumber = {}
+		this.rollback = 0
 
 		total.value = ''
 		totalCountOther.value = ''
@@ -246,7 +248,6 @@ const appData = {
 			}
 		})
 	},
-	rollbackDefault: function () {},
 }
 
 appData.init()
